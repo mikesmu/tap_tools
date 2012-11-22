@@ -24,7 +24,6 @@
 + (NSString*)base64forData:(NSData*)theData;
 + (BOOL)iOS5Present;
 + (BOOL)iphone6Present;
-+ (void)sendMailWithComposeDelegate:(id)delegate;
 
 
 @end

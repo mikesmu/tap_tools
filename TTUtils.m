@@ -8,8 +8,6 @@
 #import "TTUtils.h"
 #import "UIDevice-Hardware.h"
 #import <QuartzCore/QuartzCore.h>
-#import <MessageUI/MessageUI.h>
-#import <MessageUI/MFMailComposeViewController.h>
 
 @implementation TTUtils
 
@@ -161,30 +159,6 @@
     }
     
     return [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-}
-
-+ (void)sendMailWithComposeDelegate:(id)delegate
-{
-    MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
-    [mailComposer setSubject:NSLocalizedString(@"Unternehmen vorschlagen", nil)];
-    [mailComposer setMailComposeDelegate:delegate];
-    [mailComposer setToRecipients:[NSArray arrayWithObject:@"vorschlag@kundenapp.de"]];
-    NSMutableString *platform = [[[UIDevice currentDevice] platformString] mutableCopy];
-    [platform replaceOccurrencesOfString:@" "
-                              withString:@""
-                                 options:NSCaseInsensitiveSearch
-                                   range:[platform rangeOfString:platform]];
-    NSString *body = [NSString stringWithFormat:@"Hallo,\nich habe einen Vorschlag zu einem neuen Unternehmen für die kundenapp:"
-                      "\n\nUnternehmens- / Geschäftsname:"
-                      "\n\nAdresse:"
-                      "\n\nSonstiges:"
-                      "\n\n-- " 
-                      "\nKundenapp Version %@"
-                      "\niOS %@" 
-                      "\n%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"],
-                      [[UIDevice currentDevice] systemVersion], platform];
-    [mailComposer setMessageBody:NSLocalizedString(body, nil) isHTML:NO];
-    [delegate presentModalViewController:mailComposer animated:YES];
 }
 
 
