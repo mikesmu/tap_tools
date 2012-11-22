@@ -21,6 +21,14 @@
                                       size:(CGSize)buttonSize
                                     target:(id)target
                                andSelector:(SEL)buttonSelector;
++ (UIBarButtonItem*)barButtonItemWithTitle:(NSString*)buttonTitle
+								 titleFont:(UIFOnt*)titleFont
+                                     image:(UIImage*)image
+                                  bkgImage:(UIImage*)bkgImage
+                          bkgSelectedImage:(UIImage*)bkgSelectedImage
+                                      size:(CGSize)buttonSize
+                                    target:(id)target
+                               andSelector:(SEL)buttonSelector;
 + (NSString*)base64forData:(NSData*)theData;
 + (BOOL)iOS5Present;
 + (BOOL)iphone6Present;

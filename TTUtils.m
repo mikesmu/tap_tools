@@ -96,6 +96,39 @@
 }
 
 + (UIBarButtonItem*)barButtonItemWithTitle:(NSString*)buttonTitle
+								 titleFont:(UIFOnt*)titleFont
+                                     image:(UIImage*)image
+                                  bkgImage:(UIImage*)bkgImage
+                          bkgSelectedImage:(UIImage*)bkgSelectedImage
+                                      size:(CGSize)buttonSize
+                                    target:(id)target
+                               andSelector:(SEL)buttonSelector {
+    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    infoButton.frame = CGRectMake(0.0, 0.0, buttonSize.width, buttonSize.height);
+    [infoButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    if (image) {
+        [infoButton setImage:image forState:UIControlStateNormal];
+    }
+    if (bkgImage) {
+        [infoButton setBackgroundImage:bkgImage forState:UIControlStateNormal];
+    }
+    if (bkgSelectedImage) {
+        [infoButton setBackgroundImage:bkgSelectedImage forState:UIControlStateHighlighted];
+    }
+    
+    if (buttonTitle) {
+        [infoButton setTitle:buttonTitle forState:UIControlStateNormal];
+    }
+    [[infoButton titleLabel] setFont:titleFont];
+    [infoButton addTarget:target 
+                   action:buttonSelector
+         forControlEvents:UIControlEventTouchUpInside];
+	
+    UIBarButtonItem *infoBarButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+    return infoBarButton;
+}
+
++ (UIBarButtonItem*)barButtonItemWithTitle:(NSString*)buttonTitle
                                      image:(UIImage*)image
                                   bkgImage:(UIImage*)bkgImage
                           bkgSelectedImage:(UIImage*)bkgSelectedImage
@@ -160,6 +193,5 @@
     
     return [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
 }
-
 
 @end
