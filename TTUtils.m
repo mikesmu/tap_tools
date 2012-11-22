@@ -96,7 +96,7 @@
 }
 
 + (UIBarButtonItem*)barButtonItemWithTitle:(NSString*)buttonTitle
-								 titleFont:(UIFOnt*)titleFont
+								 titleFont:(UIFont*)titleFont
                                      image:(UIImage*)image
                                   bkgImage:(UIImage*)bkgImage
                           bkgSelectedImage:(UIImage*)bkgSelectedImage
@@ -120,6 +120,8 @@
         [infoButton setTitle:buttonTitle forState:UIControlStateNormal];
     }
     [[infoButton titleLabel] setFont:titleFont];
+	[[infoButton titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
+	[[infoButton titleLabel] setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7]];
     [infoButton addTarget:target 
                    action:buttonSelector
          forControlEvents:UIControlEventTouchUpInside];
