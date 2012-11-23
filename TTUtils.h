@@ -22,7 +22,7 @@
                                     target:(id)target
                                andSelector:(SEL)buttonSelector;
 + (UIBarButtonItem*)barButtonItemWithTitle:(NSString*)buttonTitle
-								 titleFont:(UIFOnt*)titleFont
+								 titleFont:(UIFont*)titleFont
                                      image:(UIImage*)image
                                   bkgImage:(UIImage*)bkgImage
                           bkgSelectedImage:(UIImage*)bkgSelectedImage
