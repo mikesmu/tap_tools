@@ -32,6 +32,12 @@
 + (NSString*)base64forData:(NSData*)theData;
 + (BOOL)iOS5Present;
 + (BOOL)iphone6Present;
-
++ (NSString*)appStringFromDate:(NSDate*)date;
++ (NSDate*)appDateFromString:(NSString*)string;
++ (NSString*)appHumanStringFromDate:(NSDate*)date;
++ (BOOL)date:(NSDate*)sourceDate
+isInRangeBetweenLeftDate:(NSDate*)leftDate
+andRightDate:(NSDate*)rightDate;
++ (NSDate*)bareDate:(NSDate*)date;
 
 @end

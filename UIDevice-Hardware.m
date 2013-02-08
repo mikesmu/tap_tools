@@ -1,9 +1,6 @@
 #include <sys/sysctl.h>
 #import "UIDevice-Hardware.h"
-
 @implementation UIDevice (Hardware)
-
-
 //- (NSUInteger) getSysInfo: (uint) typeSpecifier
 //{
 //    size_t size = sizeof(int);
@@ -12,7 +9,6 @@
 //    sysctl(mib, 2, &results, &size, NULL, 0);
 //    return (NSUInteger) results;
 //}
-
 - (NSString *) getSysInfoByName:(char *)typeSpecifier
 {
     size_t size;
@@ -26,12 +22,10 @@
     free(answer);
     return results;
 }
-
 - (NSString *) platform
 {
     return [self getSysInfoByName:"hw.machine"];
 }
-
 - (NSUInteger) platformType
 {
     NSString *platform = [self platform];
@@ -73,7 +67,6 @@
     
     return UIDeviceUnknown;
 }
-
 - (NSString *) platformString
 {
     switch ([self platformType])

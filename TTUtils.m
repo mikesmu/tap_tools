@@ -14,7 +14,79 @@
 + (BOOL)iOS5Present
 {
 	float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-    return (version >= 5.0);
+    return (version >= 5.0 || version < 6.0);
+}
+
++ (NSDate*)appDateFromString:(NSString*)string {
+	static NSDateFormatter *formatter;
+	formatter = [NSDateFormatter new];
+	[formatter setDateFormat:@"dd. MMMM"];
+	return [formatter dateFromString:string];
+}
+
++ (NSString*)appStringFromDate:(NSDate*)date {
+	static NSDateFormatter *formatter;
+	formatter = [NSDateFormatter new];
+	[formatter setDateFormat:@"dd. MMMM"];
+	return [formatter stringFromDate:date];
+}
+
++ (BOOL)isDate:(NSDate*)dateA equalToDate:(NSDate*)dateB withComponents:(unsigned)flags {
+	NSDateComponents *componentsA = [[NSCalendar currentCalendar] components:flags
+																   fromDate:dateA];
+	NSDateComponents *componentsB = [[NSCalendar currentCalendar] components:flags
+																	fromDate:dateB];
+	return [componentsA isEqual:componentsB];
+}
+
+// strips secunds, minuts and hours from date
++ (NSDate*)bareDate:(NSDate*)date {
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+	[calendar setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+	
+	unsigned flags = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
+	NSDateComponents *sourceComponents = [[NSCalendar currentCalendar] components:flags
+																		 fromDate:date];
+	sourceComponents.hour = 0;
+	sourceComponents.minute = 0;
+	sourceComponents.second = 0;
+	return [calendar dateFromComponents:sourceComponents];
+}
+
++ (BOOL)date:(NSDate*)sourceDate isInRangeBetweenLeftDate:(NSDate*)leftDate andRightDate:(NSDate*)rightDate {
+	NSDate *bareSourceDate = [self bareDate:sourceDate];
+	NSDate *bareLeftDate = [self bareDate:leftDate];
+	NSDate *bareRightDate = [self bareDate:rightDate];
+	
+	if ([bareSourceDate compare:bareLeftDate] == NSOrderedSame) return YES;
+	if ([bareSourceDate compare:bareRightDate] == NSOrderedSame) return YES;
+	
+	if ([bareSourceDate compare:bareLeftDate] == NSOrderedAscending &&
+		[bareSourceDate compare:bareRightDate] == NSOrderedDescending) {
+		return YES;
+	} else {
+		return NO;
+	}
+}
+
++ (NSString*)appHumanStringFromDate:(NSDate*)date {
+	if ([self isDate:date
+		 equalToDate:[NSDate date]
+	  withComponents:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)]) {
+		return NSLocalizedString(@"Heute", nil);
+	}
+	if ([self isDate:date
+		 equalToDate:[NSDate dateWithTimeIntervalSinceNow:-60.0*60.0*24.0]
+	  withComponents:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)]) {
+		return NSLocalizedString(@"Gestern", nil);
+	}
+	
+	return @"";
+	
+//	static NSDateFormatter *formatter;
+//	formatter = [NSDateFormatter new];
+//	[formatter setDateFormat:@"dd. MMMM"];
+//	return [formatter stringFromDate:date];
 }
 
 + (BOOL)iphone6Present
