@@ -41,6 +41,10 @@
 
 // strips secunds, minuts and hours from date
 + (NSDate*)bareDate:(NSDate*)date {
+	if (!date) {
+		return nil;
+	}
+	
 	NSCalendar *calendar = [NSCalendar currentCalendar];
 	[calendar setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 	
@@ -57,12 +61,13 @@
 	NSDate *bareSourceDate = [self bareDate:sourceDate];
 	NSDate *bareLeftDate = [self bareDate:leftDate];
 	NSDate *bareRightDate = [self bareDate:rightDate];
+//	TTDLog(@"comapre A %@ S %@ E %@", bareSourceDate, bareLeftDate, bareRightDate);
 	
 	if ([bareSourceDate compare:bareLeftDate] == NSOrderedSame) return YES;
 	if ([bareSourceDate compare:bareRightDate] == NSOrderedSame) return YES;
 	
-	if ([bareSourceDate compare:bareLeftDate] == NSOrderedAscending &&
-		[bareSourceDate compare:bareRightDate] == NSOrderedDescending) {
+	if ([bareSourceDate compare:bareLeftDate] == NSOrderedDescending &&
+		[bareSourceDate compare:bareRightDate] == NSOrderedAscending) {
 		return YES;
 	} else {
 		return NO;

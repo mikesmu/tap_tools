@@ -10,5 +10,8 @@
 @interface UILabel (AdjustMultiline)
 
 - (void)adjustMultilineSizeWithMinSize:(CGSize)minSize;
+- (void)adjustMultilineSizeWithMinSize:(CGSize)minSize
+						   maxFontSize:(int)maxFontSize
+				 andMinFontSizePercent:(float)percent;
 
 @end
